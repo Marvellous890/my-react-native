@@ -1,15 +1,17 @@
-import {View, Text, StyleSheet } from "react-native";
+import {View, StyleSheet } from "react-native";
+import Box from "./components/Box";
 
 export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.lightblueBg, styles.box, styles.boxShadow]}>
-        <Text>Lightblue box</Text>
-      </View>
-      <View style={[styles.box, styles.lightgreenBg, styles.androidShadow]}>
-        <Text>Lightgreen box</Text>
-      </View>
+      <Box style={{backgroundColor: "#8e9b00", alignSelf: "flex-start"}}>Box 1</Box>
+      <Box style={{backgroundColor: "#b65d1f", alignSelf: "flex-end"}}>Box 2</Box>
+      <Box style={{backgroundColor: "#1c4c56", alignSelf: "center"}}>Box 3</Box>
+      <Box style={{backgroundColor: "#ab9156", alignSelf: "stretch"}}>Box 4</Box>
+      <Box style={{backgroundColor: "#6b0803"}}>Box 5</Box>
+      <Box style={{backgroundColor: "#1c4c56"}}>Box 6</Box>
+      <Box style={{backgroundColor: "#b95f21"}}>Box 7</Box>
     </View>
   )
 }
@@ -17,31 +19,8 @@ export default function App() {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "plum",
-    padding: 60
+    marginTop: 64,
+    borderWidth: 6,
+    borderColor: "red"
   },
-  box: {
-    width: 250,
-    height: 250,
-    padding: 10,
-    backgroundColor: "pink",
-  },
-  lightblueBg: {
-    backgroundColor: "lightblue",
-  },
-  lightgreenBg: {
-    backgroundColor: "lightgreen",
-  },
-  boxShadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 6,
-      height: 6
-    },
-    shadowOpacity: 0.6,
-    shadowRadius: 4,
-  },
-  androidShadow: {
-    elevation: 10
-  }
 })
