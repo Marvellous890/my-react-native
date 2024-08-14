@@ -1,46 +1,60 @@
-import {View, StyleSheet, Text, SafeAreaView, Platform} from "react-native";
-import CustomButton from "./components/CustomButton/CustomButton";
+import {Platform, SafeAreaView, ScrollView, StyleSheet} from "react-native";
+import PokemonCard from "./components/PokemonCard";
 
 export default function App() {
 
+  const charmanderData = {
+    name: "Charmander",
+    image: require("./assets/charmander.png"),
+    type: "Fire",
+    hp: 39,
+    moves: ["Scratch", "Ember", "Growl", "Leer"],
+    weaknesses: ["Water", "Rock"],
+  };
+
+  const squirtleData = {
+    name: "Squirtle",
+    image: require("./assets/squirtle.png"), // Replace with the actual image path
+    type: "Water",
+    hp: 44,
+    moves: ["Tackle", "Water Gun", "Tail Whip", "Withdraw"],
+    weaknesses: ["Electric", "Grass"],
+  };
+
+  const bulbasaurData = {
+    name: "Bulbasaur",
+    image: require("./assets/bulbasaur.png"), // Replace with the actual image path
+    type: "Grass",
+    hp: 45,
+    moves: ["Tackle", "Vine Whip", "Growl", "Leech Seed"],
+    weaknesses: ["Fire", "Ice", "Flying", "Psychic"],
+  };
+
+  const pikachuData = {
+    name: "Pikachu",
+    image: require("./assets/pikachu.png"), // Replace with the actual image path
+    type: "Electric",
+    hp: 35,
+    moves: ["Quick Attack", "Thunderbolt", "Tail Whip", "Growl"],
+    weaknesses: ["Ground"],
+  };
+
   return (
-    <SafeAreaView style={styles.safeContainer}>
-      <View style={styles.container}>
-        <View style={styles.box}>
-          <Text style={styles.text}>Welcome</Text>
-          <CustomButton title="Press me" onPress={() => alert("Pressed")}/>
-        </View>
-      </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <PokemonCard {...charmanderData} />
+        <PokemonCard {...squirtleData} />
+        <PokemonCard {...bulbasaurData} />
+        <PokemonCard {...pikachuData} />
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 export const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: "plum",
-  },
   container: {
     flex: 1,
-    backgroundColor: "plum",
-    paddingTop: Platform.OS === "android" ? 25 : 0
+    backgroundColor: "#f5f5f5",
+    paddingTop: Platform.OS === "android" ? 25 : 0,
   },
-  box: {
-    padding:20,
-  },
-  text: {
-    ...Platform.select({
-      ios: {
-        color: "purple",
-        fontSize: 24,
-        fontStyle: "italic"
-      },
-      android: {
-        color: "blue",
-        fontSize: 30
-      }
-    }),
-    fontWeight: "bold",
-    textAlign: "center",
-  }
 })
