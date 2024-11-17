@@ -13,15 +13,22 @@ export default function App() {
           </View>
         ))}
       </ScrollView>*/}
-      <FlatList style={styles.scrollView} data={pokemonList} renderItem={({item}) => {
-        console.log(item.id)
-        return (
-          <View style={styles.card} key={item.id}>
-            <Text style={styles.cardText}>{item.type}</Text>
-            <Text style={styles.cardText}>{item.name}</Text>
-          </View>
-        )
-      }} /*horizontal*//>
+      <FlatList
+        style={styles.scrollView}
+        data={pokemonList}
+        renderItem={({item}) => {
+          console.log(item.id)
+          return (
+            <View style={styles.card} key={item.id}>
+              <Text style={styles.cardText}>{item.type}</Text>
+              <Text style={styles.cardText}>{item.name}</Text>
+            </View>
+          )
+        }}
+        // horizontal
+        keyExtractor={(item) => item.id.toString()}
+        ItemSeparatorComponent={<View style={{height: 16}}/>}
+      />
     </SafeAreaView>
   )
 }
@@ -40,7 +47,7 @@ const styles = {
     padding: 16,
     borderRadius: 8,
     borderWidth: 1,
-    marginBottom: 16
+    // marginBottom: 16
   },
   cardText: {
     fontSize: 30
