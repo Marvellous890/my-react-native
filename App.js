@@ -15,7 +15,7 @@ export default function App() {
       </ScrollView>*/}
       <FlatList
         style={styles.scrollView}
-        data={pokemonList}
+        data={[]}
         renderItem={({item}) => {
           console.log(item.id)
           return (
@@ -28,6 +28,7 @@ export default function App() {
         // horizontal
         keyExtractor={(item) => item.id.toString()}
         ItemSeparatorComponent={<View style={{height: 16}}/>}
+        ListEmptyComponent={<Text>No items found</Text>}
       />
     </SafeAreaView>
   )
