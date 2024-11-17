@@ -1,6 +1,6 @@
-import {FlatList, SafeAreaView, ScrollView, StatusBar, Text, View} from "react-native";
+import {FlatList, SafeAreaView, ScrollView, SectionList, StatusBar, Text, View} from "react-native";
 import pokemonList from './data.json'
-
+import groupedPokemonList from './grouped-data.json'
 
 export default function App() {
   return (
@@ -13,25 +13,43 @@ export default function App() {
           </View>
         ))}
       </ScrollView>*/}
-      <FlatList
-        style={styles.scrollView}
-        data={pokemonList}
-        renderItem={({item}) => {
-          console.log(item.id)
-          return (
-            <View style={styles.card} key={item.id}>
-              <Text style={styles.cardText}>{item.type}</Text>
-              <Text style={styles.cardText}>{item.name}</Text>
-            </View>
-          )
-        }}
-        // horizontal
-        keyExtractor={(item) => item.id.toString()}
-        ItemSeparatorComponent={<View style={{height: 16}}/>}
-        ListEmptyComponent={<Text>No items found</Text>}
-        ListHeaderComponent={<Text style={styles.headerText}>Pokemon Text</Text>}
-        ListFooterComponent={<Text style={styles.footerText}>End of List</Text>}
-      />
+      <View style={styles.scrollView}>
+        {/*<FlatList
+          style={styles.scrollView}
+          data={pokemonList}
+          renderItem={({item}) => {
+            console.log(item.id)
+            return (
+              <View style={styles.card} key={item.id}>
+                <Text style={styles.cardText}>{item.type}</Text>
+                <Text style={styles.cardText}>{item.name}</Text>
+              </View>
+            )
+          }}
+          // horizontal
+          keyExtractor={(item) => item.id.toString()}
+          ItemSeparatorComponent={<View style={{height: 16}}/>}
+          ListEmptyComponent={<Text>No items found</Text>}
+          ListHeaderComponent={<Text style={styles.headerText}>Pokemon Text</Text>}
+          ListFooterComponent={<Text style={styles.footerText}>End of List</Text>}
+        />*/}
+
+        <SectionList
+          sections={groupedPokemonList}
+          renderItem={({item}) => {
+            return (
+              <View style={styles.card}>
+                <Text style={styles.cardText}>{item}</Text>
+              </View>
+            )
+          }}
+          renderSectionHeader={({section}) => {
+            return <Text style={styles.sectionHeaderText}>{section.type}</Text>
+          }}
+          ItemSeparatorComponent={() => <View style={{height: 16}}/>}
+          SectionSeparatorComponent={() => <View style={{height: 16}}/>}
+        />
+      </View>
     </SafeAreaView>
   )
 }
@@ -64,5 +82,10 @@ const styles = {
     fontSize: 24,
     textAlign: 'center',
     marginTop: 12
-  }
+  },
+  sectionHeaderText: {
+    backgroundColor: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
 }
