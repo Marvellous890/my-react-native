@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 export default function App() {
   const [postList, setPostList] = useState()
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
 
   const fetchData = async (limit = 10) => {
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}`);
@@ -15,6 +16,12 @@ export default function App() {
     setPostList(data);
     setLoading(false);
   }
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchData(20).then(() => setRefreshing(false));
+  }
+
 
   useEffect(() => {
     fetchData();
@@ -44,6 +51,8 @@ export default function App() {
           ListEmptyComponent={() => <Text>No data</Text>}
           ListHeaderComponent={() => <Text style={{fontSize: 20, marginBottom: 16}}>Post List</Text>}
           ListFooterComponent={() => <Text style={{fontSize: 20, marginTop: 16}}>End of List</Text>}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
         />
       </View>
     </SafeAreaView>
