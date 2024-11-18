@@ -14,7 +14,27 @@ import {useState} from "react";
 export default function App() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [errors, setErrors] = useState({})
 
+  const validateForm = () => {
+    let errors = {}
+
+    if (!username) errors.username = "Username is required"
+    if (!password) errors.password = "Password is required"
+
+    setErrors(errors)
+
+    return Object.keys(errors).length === 0
+  }
+
+  const handleSubmit = () => {
+    if (!validateForm()) return
+
+    console.log("submitted", username, password)
+    setUsername("")
+    setPassword("")
+    setErrors({})
+  }
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container} keyboardVerticalOffset={Platform.OS === 'ios'? 100 : 0}>
@@ -28,6 +48,7 @@ export default function App() {
           value={username}
           onChangeText={setUsername}
         />
+        {errors.username && <Text style={{color: 'red', marginBottom: 10}}>{errors.username}</Text>}
         <Text>Password</Text>
         <TextInput
           style={styles.input}
@@ -36,7 +57,8 @@ export default function App() {
           value={password}
           onChangeText={setPassword}
         />
-        <Button title="Login" onPress={() => alert('Login')}/>
+        {errors.password && <Text style={{color: 'red', marginBottom: 10}}>{errors.password}</Text>}
+        <Button title="Login" onPress={handleSubmit}/>
       </View>
     </KeyboardAvoidingView>
   )
